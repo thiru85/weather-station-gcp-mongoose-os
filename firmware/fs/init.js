@@ -59,7 +59,7 @@ MQTT.setEventHandler(function(conn, ev) {
 function publishData() {
   let ok = MQTT.pub(topic, getInfo());
   if (ok) {
-    print('Published');
+    print('Published to IoT Core');
   } else {
     print('Error publishing');
   }
