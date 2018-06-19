@@ -71,7 +71,7 @@ function insertIntoBigquery(data) {
  * HTTPS endpoint to be used by the webapp
  */
 exports.getReportData = functions.https.onRequest((req, res) => {
-  const table = '`weather-station-iot-170004.weather_station_iot.raw_data`';
+  const table = '`gcpdemoproject.weather_station_iot.raw_data`';
 
   const query = `
     SELECT 
