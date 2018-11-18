@@ -21,15 +21,18 @@ exports.receiveTelemetry = functions.pubsub
     const deviceId = attributes['deviceId'];
 
     const data = {
-      humidity: message.hum,
+      humidity: message.humidity,
       temp: message.temp,
       deviceId: deviceId,
-      timestamp: event.timestamp
+      timestamp: event.timestamp,
+      uptime: message.uptime,
+      free_ram: message.free_ram,
+      total_ram: message.total_ram
     };
 
     if (
-      message.hum < 0 ||
-      message.hum > 100 ||
+      message.humidity < 0 ||
+      message.humidity > 100 ||
       message.temp > 100 ||
       message.temp < -50
     ) {
@@ -50,7 +53,8 @@ function updateCurrentDataFirebase(data) {
   return db.ref(`/devices/${data.deviceId}`).set({
     humidity: data.humidity,
     temp: data.temp,
-    lastTimestamp: data.timestamp
+    lastTimestamp: data.timestamp,
+    total_ram: data.total_ram,
   });
 }
 
@@ -71,7 +75,7 @@ function insertIntoBigquery(data) {
  * HTTPS endpoint to be used by the webapp
  */
 exports.getReportData = functions.https.onRequest((req, res) => {
-  const table = '`gcpdemoproject.weather_station_iot.raw_data`';
+  const table = '`gcpdemoproject:iotdemo.iotweatherdemo`';
 
   const query = `
     SELECT 
