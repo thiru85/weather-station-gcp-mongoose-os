@@ -54,7 +54,7 @@ function updateCurrentDataFirebase(data) {
     humidity: data.humidity,
     temp: data.temp,
     lastTimestamp: data.timestamp,
-    total_ram: data.total_ram,
+    total_ram: data.total_ram
   });
 }
 
